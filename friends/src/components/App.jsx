@@ -1,10 +1,20 @@
-import React from 'react';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login"></Route>
+        <Route path="/">
+          <Redirect to="/login" />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
-
-export default App;
