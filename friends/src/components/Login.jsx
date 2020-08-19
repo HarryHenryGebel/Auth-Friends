@@ -48,7 +48,7 @@ export function Login(props) {
             onChange={onChange}
             required
             type="password"
-            value={values.age}
+            value={values.password}
             variant="outlined"
           />
         </Box>
@@ -71,6 +71,6 @@ export function Login(props) {
     </Box>
   );
 }
-export default connect(null, login)(Login);
+export default connect(null, { login })(Login);
 
 //  LocalWords:  ExitToAppRounded

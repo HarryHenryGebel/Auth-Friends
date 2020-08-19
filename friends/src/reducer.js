@@ -18,7 +18,7 @@ export default function reducer(state = initialState, action) {
       return { ...state, loggedIn: false, loggingIn: true };
     case LOGIN_FAILURE:
       return { ...state, loggedIn: false, loggingIn: false };
-    case LOGIN:
+    case LOGIN_SUCCESS:
       return { ...state, loggedIn: true, loggingIn: false };
     case SET_LOGGED_IN:
       return { ...state, loggedIn: action.state };
