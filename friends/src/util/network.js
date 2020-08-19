@@ -1,12 +1,44 @@
-import { store, SET_LOGGED_IN } from "../reducer.js";
+import requester from "easier-requests";
 
-let token;
+import {
+  store,
+  LOGIN,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  SET_LOGGED_IN,
+} from "../reducer.js";
 
-export default function login(username, password) {}
+let headers;
+
+export default function login(username, password) {
+  return function (dispatch) {
+    async function _login() {
+      try {
+        debugger;
+        const id = requester.createUniqueID();
+        await requester.post("http://localhost:5000/api/login", id, {
+          username: username,
+          password: password,
+        });
+
+        const token = requester.response(id).data.payload;
+        headers = { authorization: token };
+        localStorage.setItem("Authorization", JSON.stringify(headers));
+        requester.setOptions({ headers: headers });
+        dispatch({ type: LOGIN_SUCCESS });
+      } catch (error) {
+        console.log(error);
+        dispatch({ type: LOGIN_FAILURE, error: error });
+      }
+    }
+    dispatch({ type: LOGIN });
+    _login();
+  };
+}
 
 function _inititalizeNetwork() {
-  token = JSON.parse(localStorage.getItem("token"));
-  store.dispatch({ type: SET_LOGGED_IN, state: token ? true : false });
+  headers = JSON.parse(localStorage.getItem("authorization"));
+  store.dispatch({ type: SET_LOGGED_IN, state: headers ? true : false });
 }
 
 _inititalizeNetwork();
