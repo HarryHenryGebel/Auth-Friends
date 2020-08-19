@@ -14,7 +14,6 @@ export default function login(username, password) {
   return function (dispatch) {
     async function _login() {
       try {
-        debugger;
         const id = requester.createUniqueID();
         await requester.post("http://localhost:5000/api/login", id, {
           username: username,
@@ -22,7 +21,7 @@ export default function login(username, password) {
         });
 
         const token = requester.response(id).data.payload;
-        headers = { authorization: token };
+        headers = { Authorization: token };
         localStorage.setItem("Authorization", JSON.stringify(headers));
         requester.setOptions({ headers: headers });
         dispatch({ type: LOGIN_SUCCESS });
@@ -37,7 +36,7 @@ export default function login(username, password) {
 }
 
 function _inititalizeNetwork() {
-  headers = JSON.parse(localStorage.getItem("authorization"));
+  headers = JSON.parse(localStorage.getItem("Authorization"));
   store.dispatch({ type: SET_LOGGED_IN, state: headers ? true : false });
 }
 
