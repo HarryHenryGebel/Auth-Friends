@@ -1,10 +1,4 @@
 let token;
-const LOGIN = "LOGIN";
-
-const initialState = {
-  loggedIn: false,
-  isLoggingIn: false,
-};
 
 export default function login(username, password) {}
 
