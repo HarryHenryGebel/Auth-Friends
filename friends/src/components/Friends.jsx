@@ -1,13 +1,27 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
+import Friend from "./Friend";
 import { getFriends } from "../util/network.js";
 
 function Friends(props) {
-  const { getFriends } = props;
+  const { friends, getFriends } = props;
+
   useEffect(() => getFriends());
 
-  return <div />;
+  return (
+    <>
+      {friends.map((friend) => (
+        <Friend key={friend.id} friend={friend} />
+      ))}
+    </>
+  );
 }
 
-export default connect(null, { getFriends })(Friends);
+function mapStateToProps(state) {
+  return {
+    friends: state.friends,
+  };
+}
+
+export default connect(mapStateToProps, { getFriends })(Friends);
