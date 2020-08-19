@@ -2,6 +2,9 @@ import requester from "easier-requests";
 
 import {
   store,
+  GET_FRIENDS,
+  GET_FRIENDS_FAILURE,
+  GET_FRIENDS_SUCCESS,
   LOGIN,
   LOGIN_FAILURE,
   LOGIN_SUCCESS,
@@ -9,6 +12,24 @@ import {
 } from "../reducer.js";
 
 let headers;
+
+export function getFriends() {
+  return function (dispatch) {
+    async function _getFriends() {
+      try {
+        const id = requester.createUniqueID();
+        await requester.get("http://localhost:5000/api/friends", id);
+        const friends = requester.response(id).data;
+        dispatch({ type: GET_FRIENDS_SUCCESS, friends: friends });
+      } catch (error) {
+        console.log(error);
+        dispatch({ type: GET_FRIENDS_FAILURE, error: error });
+      }
+    }
+    dispatch({ type: GET_FRIENDS });
+    _getFriends();
+  };
+}
 
 export function login(username, password, history) {
   return function (dispatch) {
@@ -39,6 +60,7 @@ export function login(username, password, history) {
 function _inititalizeNetwork() {
   headers = JSON.parse(localStorage.getItem("Authorization"));
   store.dispatch({ type: SET_LOGGED_IN, state: headers ? true : false });
+  if (headers) requester.setOptions({ headers: headers });
 }
 
 _inititalizeNetwork();
