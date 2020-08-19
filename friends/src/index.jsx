@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 import { Paper } from "@material-ui/core";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "fontsource-roboto";
-import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./components/App";
@@ -25,7 +23,7 @@ ReactDOM.render(
           <App />
         </Paper>
       </ThemeProvider>
-    </Provider>{" "}
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
