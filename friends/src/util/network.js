@@ -8,7 +8,8 @@ const initialState = {
 
 export default function login(username, password) {}
 
-export function inititalizeNetwork() {
+function _inititalizeNetwork() {
   token = JSON.parse(localStorage.getItem("token"));
-  debugger;
 }
+
+_inititalizeNetwork();
