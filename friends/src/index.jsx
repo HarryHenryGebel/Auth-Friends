@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import "fontsource-roboto";
 
 import "./index.css";
-import App from "./components/App";
 
 import inititalizeNetwork from "./util/network";
+import App from "./components/App";
 
 ReactDOM.render(
   <React.StrictMode>
