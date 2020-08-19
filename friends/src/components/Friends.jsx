@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import Friend from "./Friend";
+import FriendForm from "./FriendForm";
 import { getFriends } from "../util/network.js";
 
 function Friends(props) {
@@ -14,6 +15,7 @@ function Friends(props) {
       {friends.map((friend) => (
         <Friend key={friend.id} friend={friend} />
       ))}
+      <FriendForm />
     </>
   );
 }
