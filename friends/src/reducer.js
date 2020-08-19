@@ -1,3 +1,6 @@
+import { applyMiddleware, createStore } from "redux";
+import thunk from "redux-thunk";
+
 export const LOGIN = "LOGIN",
   LOGIN_FAILURE = "LOGIN_FAILURE",
   LOGIN_SUCCESS = "LOGIN_SUCCESS",
@@ -16,11 +19,14 @@ export default function reducer(state = initialState, action) {
     case LOGIN_FAILURE:
       return { ...state, loggedIn: false, loggingIn: false };
     case LOGIN:
-    case SET_LOGGED_IN:
       return { ...state, loggedIn: true, loggingIn: false };
+    case SET_LOGGED_IN:
+      return { ...state, loggedIn: action.state };
     default:
       // return state if called by redux, otherwise throw error
       if (action.type.includes("@@redux")) return state;
       else throw Error(`Invalid action "{$action.type}"`);
   }
 }
+
+export const store = createStore(reducer, applyMiddleware(thunk));

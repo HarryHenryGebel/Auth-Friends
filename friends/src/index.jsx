@@ -9,9 +9,7 @@ import thunk from "redux-thunk";
 
 import "./index.css";
 import App from "./components/App";
-import reducer from "./reducer";
-
-const store = createStore(reducer, applyMiddleware(thunk));
+import { store } from "./reducer";
 
 const darkTheme = createMuiTheme({
   palette: {
