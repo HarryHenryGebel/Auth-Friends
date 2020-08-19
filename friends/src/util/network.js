@@ -10,7 +10,7 @@ import {
 
 let headers;
 
-export default function login(username, password) {
+export function login(username, password, history) {
   return function (dispatch) {
     async function _login() {
       try {
@@ -25,6 +25,7 @@ export default function login(username, password) {
         localStorage.setItem("Authorization", JSON.stringify(headers));
         requester.setOptions({ headers: headers });
         dispatch({ type: LOGIN_SUCCESS });
+        window.open("/friends");
       } catch (error) {
         console.log(error);
         dispatch({ type: LOGIN_FAILURE, error: error });

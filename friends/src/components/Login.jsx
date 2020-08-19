@@ -7,7 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import ExitToAppRoundedIcon from "@material-ui/icons/ExitToAppRounded";
 
-import login from "../util/network";
+import { login } from "../util/network";
 
 const initialValues = {
   username: "",
@@ -64,7 +64,7 @@ export function Login(props) {
             startIcon={<ExitToAppRoundedIcon />}
             variant="contained"
           >
-            Add
+            Log In
           </Button>
         </Box>
       </Card>
