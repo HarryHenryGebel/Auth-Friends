@@ -16,12 +16,12 @@ import {
 
 let headers;
 
-export function addFriend() {
+export function addFriend(friend) {
   return function (dispatch) {
     async function _addFriend() {
       try {
         const id = requester.createUniqueID();
-        await requester.post("http://localhost:5000/api/friends", id);
+        await requester.post("http://localhost:5000/api/friends", id, friend);
         const friends = requester.response(id).data;
         dispatch({ type: ADD_FRIEND_SUCCESS, friends: friends });
       } catch (error) {
