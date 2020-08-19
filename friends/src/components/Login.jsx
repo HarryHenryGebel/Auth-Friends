@@ -53,7 +53,9 @@ export default function Login() {
         </Box>
         <Box m={1}>
           <Button
-            disabled={values.username.trim() === "" || values.password.trim()}
+            disabled={
+              values.username.trim() === "" || values.password.trim() === ""
+            }
             onClick={() => {
               login(values.username, values.password);
               setValues(initialValues);
