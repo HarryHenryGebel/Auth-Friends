@@ -2,6 +2,9 @@ import requester from "easier-requests";
 
 import {
   store,
+  SET_FRIEND,
+  SET_FRIEND_FAILURE,
+  SET_FRIEND_SUCCESS,
   GET_FRIENDS,
   GET_FRIENDS_FAILURE,
   GET_FRIENDS_SUCCESS,
@@ -12,6 +15,24 @@ import {
 } from "../reducer.js";
 
 let headers;
+
+export function addFriend() {
+  return function (dispatch) {
+    async function _addFriend() {
+      try {
+        const id = requester.createUniqueID();
+        await requester.post("http://localhost:5000/api/friends", id);
+        const friends = requester.response(id).data;
+        dispatch({ type: SET_FRIEND_SUCCESS, friends: friends });
+      } catch (error) {
+        console.log(error);
+        dispatch({ type: SET_FRIEND_FAILURE, error: error });
+      }
+    }
+    dispatch({ type: SET_FRIEND });
+    _addFriend();
+  };
+}
 
 export function getFriends() {
   return function (dispatch) {

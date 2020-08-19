@@ -1,7 +1,10 @@
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 
-export const GET_FRIENDS = "GET_FRIENDS",
+export const ADD_FRIEND = "ADD_FRIEND",
+  ADD_FRIEND_FAILURE = "ADD_FRIEND_FAILURE",
+  ADD_FRIEND_SUCCESS = "ADD_FRIEND_SUCCESS",
+  GET_FRIENDS = "GET_FRIENDS",
   GET_FRIENDS_FAILURE = "GET_FRIENDS_FAILURE",
   GET_FRIENDS_SUCCESS = "GET_FRIENDS_SUCCESS",
   LOGIN = "LOGIN",
@@ -12,6 +15,7 @@ export const GET_FRIENDS = "GET_FRIENDS",
 const initialState = {
   // see if we have a saved token
   friends: [],
+  addingFriend: false,
   gettingFriends: false,
   loggedIn: false,
   loggingIn: false,
@@ -19,6 +23,12 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case ADD_FRIEND:
+      return { ...state, addingFriends: true };
+    case ADD_FRIEND_FAILURE:
+      return { ...state, addingFriends: false };
+    case ADD_FRIEND_SUCCESS:
+      return { ...state, addingFriends: false, friends: action.friends };
     case GET_FRIENDS:
       return { ...state, gettingFriends: true };
     case GET_FRIENDS_FAILURE:
