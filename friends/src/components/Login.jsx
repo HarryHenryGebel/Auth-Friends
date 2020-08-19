@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -13,7 +14,7 @@ const initialValues = {
   password: "",
 };
 
-export default function Login() {
+export function Login(props) {
   const [values, setValues] = useState(initialValues);
 
   function onChange(event) {
@@ -57,7 +58,7 @@ export default function Login() {
               values.username.trim() === "" || values.password.trim() === ""
             }
             onClick={() => {
-              login(values.username, values.password);
+              props.login(values.username, values.password);
               setValues(initialValues);
             }}
             startIcon={<ExitToAppRoundedIcon />}
@@ -70,5 +71,6 @@ export default function Login() {
     </Box>
   );
 }
+export default connect(null, login)(Login);
 
 //  LocalWords:  ExitToAppRounded
